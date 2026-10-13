@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth bg-slate-900 text-slate-200">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15 Recursos de UI - Guia Prático</title>
+    
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Courier New', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        phase1: { bg: '#1a1a2e', text: '#6a5acd', light: '#c9c9e3' },
+                        phase2: { bg: '#1e1e2e', text: '#e6e6f0' },
+                        accent: { green: '#2e7d32', orange: '#ff8f00', red: '#e65100' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+
+        /* Custom Scrollbar for Dark Mode */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; /* slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569; /* slate-600 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* slate-500 */
+        }
+
+        /* Subtle animations */
+        .hover-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .prompt-box {
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        /* Smooth reveal for sections */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+                    <i class="ph ph-paint-brush-broad text-lg"></i>
+                </div>
+                <h1 class="text-lg font-bold text-white hidden sm:block">Guia Prático de UI</h1>
+            </div>
+            
+            <div class="text-sm font-medium text-slate-400">
+                Por <a href="https://instagram.com/gestordeaudiencia" target="_blank" class="text-brand-400 hover:text-brand-300 transition-colors">@gestordeaudiencia</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+        
+        <!-- Hero Section -->
+        <div class="bg-[#1a1a2e] rounded-3xl p-8 sm:p-12 mb-12 shadow-2xl overflow-hidden relative border border-white/5">
+            <!-- Decorative blur elements -->
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-indigo-500 rounded-full mix-blend-screen filter blur-[80px] opacity-20"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 bg-purple-500 rounded-full mix-blend-screen filter blur-[80px] opacity-20"></div>
+            
+            <div class="relative z-10">
+                <p class="text-[#6a5acd] font-bold tracking-widest text-sm mb-4 uppercase">Guia Prático · Design de Interface</p>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                    15 Recursos de UI para seu site parar de ter <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">cara de feito no automático</span>.
+                </h2>
+                <p class="text-lg text-[#c9c9e3] max-w-3xl mb-8">
+                    Bibliotecas, checklists e prompts prontos para transformar aquele site genérico de IA em algo que parece feito por um time de design.
+                </p>
+                
+                <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 text-[#c9c9e3] shadow-inner">
+                    <p class="mb-2">Você pede um site para uma IA, ela entrega em 30 segundos, e aí bate aquela sensação: <em class="text-white font-medium">está funcionando, mas parece qualquer outro site do mundo</em>. Fonte padrão, azul padrão, botão padrão, aquele degradê roxo que todo mundo já viu.</p>
+                    <p>Esse guia reúne 15 recursos gratuitos que resolvem exatamente isso. Todos são links que você abre no navegador e usa hoje, sem instalar nada.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to use this guide (Warning box) -->
+        <div class="bg-emerald-900/20 border-l-4 border-emerald-500 rounded-r-xl p-6 mb-16 shadow-sm reveal">
+            <h4 class="font-bold text-emerald-400 mb-2 flex items-center gap-2">
+                <i class="ph-fill ph-info text-xl"></i> COMO USAR ESTE GUIA
+            </h4>
+            <p class="text-emerald-100/80 mb-2">Não tente usar os 15 de uma vez. Siga a ordem da FASE 02 — ela monta uma base sólida em 5 passos.</p>
+            <p class="text-emerald-50 font-medium">Todos os prompts em fundo escuro são para copiar e colar direto no seu assistente de IA.</p>
+        </div>
+
+        <!-- FASE 01 -->
+        <section class="mb-20 reveal">
+            <div class="bg-[#1a1a2e] rounded-t-2xl p-6 border-b-4 border-[#6a5acd]">
+                <p class="text-[#6a5acd] font-bold text-sm mb-1 uppercase">FASE 01</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1">POR QUE SEU SITE TEM CARA DE IA</h3>
+                <p class="text-[#c9c9e3] text-sm">Entendendo o problema antes de sair usando ferramenta</p>
+            </div>
+            
+            <div class="bg-slate-800 rounded-b-2xl p-6 sm:p-8 shadow-sm border border-slate-700 border-t-0">
+                <p class="text-slate-300 mb-6 text-lg leading-relaxed">
+                    Existe um apelido para isso no meio: <strong class="text-white">vibecoded</strong> — algo feito "no automático", só na vibe, sem cuidado com os detalhes. E o motivo é simples: quando você pede "deixa bonito", a IA não tem alvo nenhum. Ela chuta. E o chute dela é a média de tudo que ela já viu na internet.
+                </p>
+                
+                <h4 class="font-bold text-white mb-4 text-lg">Os três sintomas mais comuns:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-slate-700/50 p-5 rounded-xl border border-slate-600 hover:border-slate-500 transition-colors">
+                        <div class="w-10 h-10 bg-rose-500/20 text-rose-400 rounded-full flex items-center justify-center mb-3">
+                            <span class="font-bold">1</span>
+                        </div>
+                        <h5 class="font-bold text-white mb-2">Valores inventados</h5>
+                        <p class="text-sm text-slate-400">Cada tela tem um espaçamento diferente, um cinza levemente diferente, um cantinho arredondado diferente.</p>
+                    </div>
+                    <div class="bg-slate-700/50 p-5 rounded-xl border border-slate-600 hover:border-slate-500 transition-colors">
+                        <div class="w-10 h-10 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mb-3">
+                            <span class="font-bold">2</span>
+                        </div>
+                        <h5 class="font-bold text-white mb-2">Componentes genéricos</h5>
+                        <p class="text-sm text-slate-400">O mesmo card, o mesmo botão e a mesma tabela de preços que existem em outros 40 mil sites.</p>
+                    </div>
+                    <div class="bg-slate-700/50 p-5 rounded-xl border border-slate-600 hover:border-slate-500 transition-colors">
+                        <div class="w-10 h-10 bg-sky-500/20 text-sky-400 rounded-full flex items-center justify-center mb-3">
+                            <span class="font-bold">3</span>
+                        </div>
+                        <h5 class="font-bold text-white mb-2">Zero movimento</h5>
+                        <p class="text-sm text-slate-400">Nada reage quando você passa o mouse ou clica. Tudo parado, tudo duro.</p>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-900/30 p-6 rounded-xl border border-indigo-500/30 mb-6">
+                    <p class="text-indigo-200 leading-relaxed">
+                        Dois termos que vão aparecer o tempo todo daqui pra frente. <strong class="text-indigo-300">UI</strong> (do inglês <em>user interface</em>) é a interface do usuário: tudo que a pessoa vê e clica na tela. E <strong class="text-indigo-300">design system</strong> é uma biblioteca de padrões visuais — as cores oficiais, os tamanhos de texto, os botões prontos — que garante que toda página do seu site pareça parte da mesma casa.
+                    </p>
+                </div>
+
+                <h4 class="font-bold text-white mb-4">Os 15 recursos deste guia se dividem em quatro grupos:</h4>
+                <ul class="space-y-3 text-slate-300 mb-8">
+                    <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-400 mt-1"></i> <span><strong class="text-white">FUNDAÇÃO</strong> — definem as regras visuais antes de qualquer código existir.</span></li>
+                    <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-400 mt-1"></i> <span><strong class="text-white">COMPONENTES</strong> — peças prontas de interface para você não reinventar a roda.</span></li>
+                    <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-400 mt-1"></i> <span><strong class="text-white">MOVIMENTO</strong> — animações que fazem a interface responder ao usuário.</span></li>
+                    <li class="flex items-start gap-2"><i class="ph-fill ph-check-circle text-brand-400 mt-1"></i> <span><strong class="text-white">POLIMENTO</strong> — checklists que apontam o que ficou faltando antes de publicar.</span></li>
+                </ul>
+
+                <!-- Warning Alert -->
+                <div class="bg-amber-900/20 border-l-4 border-amber-500 rounded-r-xl p-5">
+                    <h4 class="font-bold text-amber-500 mb-2 flex items-center gap-2">
+                        <i class="ph-fill ph-warning-circle text-xl"></i> O ERRO QUE QUASE TODO MUNDO COMETE
+                    </h4>
+                    <p class="text-amber-100/80 mb-2">Pedir polimento no final, quando o site já está pronto. Aí a IA precisa refazer tudo e sempre quebra alguma coisa.</p>
+                    <p class="text-amber-50 font-medium">Design system e tokens entram ANTES da primeira tela. É a diferença entre construir com planta e construir na base do improviso.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 02 -->
+        <section class="mb-20 reveal">
+            <div class="bg-[#1a1a2e] rounded-t-2xl p-6 border-b-4 border-emerald-500">
+                <p class="text-emerald-400 font-bold text-sm mb-1 uppercase">FASE 02</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1">AÇÃO PRINCIPAL: O CAMINHO DOS 5 PASSOS</h3>
+                <p class="text-[#c9c9e3] text-sm">Do zero visual até uma interface que parece profissional</p>
+            </div>
+            
+            <div class="bg-slate-800 rounded-b-2xl p-0 sm:p-2 shadow-sm border border-slate-700 border-t-0">
+                
+                <!-- Passo 1 -->
+                <div class="p-6 sm:p-8 border-b border-slate-700 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#7b2fbe] text-white flex items-center justify-center font-bold text-xl shrink-0 mt-1 shadow-lg shadow-[#7b2fbe]/30">1</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-3">Trave a fundação visual</h4>
+                            <p class="text-slate-300 mb-3">
+                                Comece por <a href="https://open-props.style/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">open-props.style</a>. Ele entrega <strong class="text-white">tokens de design</strong> prontos — tokens são valores fixos e nomeados para cor, sombra, arredondamento de canto, espaçamento e curva de animação. Em vez da IA inventar um cinza novo em cada tela, ela usa sempre os mesmos valores da lista.
+                            </p>
+                            <p class="text-slate-300 mb-6">
+                                Depois use <a href="https://utopia.fyi/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">utopia.fyi</a> para gerar tipografia e espaçamento fluidos — ou seja, textos e espaços que crescem e encolhem sozinhos conforme o tamanho da tela, sem aquele efeito de título gigante espremido no celular.
+                            </p>
+                            
+                            <!-- Prompt Box -->
+                            <div class="mt-4">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                    <i class="ph-fill ph-terminal-window text-base"></i> PROMPT 1 — copie e cole no seu assistente:
+                                </p>
+                                <div class="bg-[#0f172a] border border-slate-700 rounded-xl p-5 relative group shadow-inner">
+                                    <button onclick="copyText('prompt1')" class="absolute top-3 right-3 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all" title="Copiar Prompt">
+                                        <i class="ph ph-copy"></i>
+                                    </button>
+                                    <p id="prompt1" class="prompt-box text-[#e6e6f0] text-sm sm:text-base leading-relaxed">Antes de escrever qualquer linha de código, defina os tokens de design do projeto usando Open Props (open-props.style): cores, sombras, raios de borda, espaçamentos e curvas de animação.
+
+Gere a escala de tipografia e espaçamento com Utopia (utopia.fyi), fluida entre 360px e 1440px.
+
+Regra fixa para todo o projeto: NUNCA use valores soltos de cor, tamanho ou espaçamento. Use apenas as variáveis definidas aqui.
+Se faltar algum valor, me avise em vez de inventar um novo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="p-6 sm:p-8 border-b border-slate-700 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#7b2fbe] text-white flex items-center justify-center font-bold text-xl shrink-0 mt-1 shadow-lg shadow-[#7b2fbe]/30">2</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-3">Decida de onde vêm seus componentes</h4>
+                            <p class="text-slate-300 mb-3">
+                                <a href="https://reui.io/components" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">reui.io/components</a> tem mais de 1.000 componentes shadcn gratuitos — <em class="text-slate-400">shadcn</em> é hoje o padrão mais usado de peças prontas de interface. Lá tem também padrões avançados: <em class="text-slate-400">data grids</em> (tabelas com filtro e ordenação), <em class="text-slate-400">kanban</em> (quadro de cartões arrastáveis, tipo Trello), <em class="text-slate-400">gantt</em> (cronograma em barras), filtros e calendários.
+                            </p>
+                            <p class="text-slate-300">
+                                Se o seu projeto é um produto de verdade e não uma página só, vá de <a href="https://coss.com/ui" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">coss.com/ui</a> — é o design system pronto para produção do Cal.com, com componentes React acessíveis que passam a ser seus. <em class="text-slate-400">React</em> é a tecnologia mais usada hoje para montar interfaces, e <em class="text-slate-400">acessível</em> quer dizer que funciona também para quem navega só pelo teclado ou usa leitor de tela. Grande vantagem: não tem a cara padrão de SaaS que todo mundo reconhece de longe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="p-6 sm:p-8 border-b border-slate-700 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#7b2fbe] text-white flex items-center justify-center font-bold text-xl shrink-0 mt-1 shadow-lg shadow-[#7b2fbe]/30">3</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-3">Dê um alvo de layout ao seu agente</h4>
+                            <p class="text-slate-300 mb-3">
+                                Aqui está o pulo do gato. <a href="https://vibeprompts.dev/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">vibeprompts.dev</a> tem 256 prompts para seções específicas de interface: <em class="text-slate-400">dashboards</em> (painéis de números), páginas de preços, autenticação (tela de login e cadastro), <em class="text-slate-400">onboarding</em> (os primeiros passos de quem acabou de entrar) e seções <em class="text-slate-400">hero</em> (o primeiro bloco da página, aquele que aparece antes de rolar).
+                            </p>
+                            <p class="text-slate-300">
+                                Em vez de pedir "deixe bonito", você entrega ao agente de codificação — a IA que escreve o código no seu lugar — um alvo concreto de layout. O resultado muda de patamar na primeira tentativa.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 4 -->
+                <div class="p-6 sm:p-8 border-b border-slate-700 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#7b2fbe] text-white flex items-center justify-center font-bold text-xl shrink-0 mt-1 shadow-lg shadow-[#7b2fbe]/30">4</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-3">Coloque a interface em movimento</h4>
+                            <p class="text-slate-300 mb-3">
+                                <a href="https://kinetics.colorion.co/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">kinetics.colorion.co</a> entrega animações de mola (<em class="text-slate-400">spring</em>) prontas, com o código em CSS, em React e também o prompt de IA correspondente. Animação de mola é aquele movimento que desacelera e dá uma leve repicada no fim, em vez de parar seco — é o que faz parecer natural. <em class="text-slate-400">CSS</em> é a linguagem que define a aparência de um site.
+                            </p>
+                            <p class="text-slate-300 mb-3">
+                                Para botões, <a href="https://animatedbuttons.colorion.co/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">animatedbuttons.colorion.co</a> tem 99 interações só em CSS: você copia o CSS ou o prompt. Use o mesmo estilo de botão no produto inteiro — consistência é metade da sensação de acabamento.
+                            </p>
+                            <p class="text-slate-300">
+                                Para animações maiores e reaproveitáveis, <a href="https://motion-primitives.com/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">motion-primitives.com</a> tem componentes de animação prontos para React.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo 5 -->
+                <div class="p-6 sm:p-8 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-[#7b2fbe] text-white flex items-center justify-center font-bold text-xl shrink-0 mt-1 shadow-lg shadow-[#7b2fbe]/30">5</div>
+                        <div>
+                            <h4 class="text-xl font-bold text-white mb-3">Audite antes de publicar</h4>
+                            <p class="text-slate-300 mb-3">
+                                <a href="https://ui-skills.com/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">ui-skills.com</a> reúne playbooks de design feitos tanto para humanos quanto para agentes de codificação. Serve para auditar a UI, corrigir aquele design genérico de IA e melhorar animações, acessibilidade e polimento.
+                            </p>
+                            <p class="text-slate-300 mb-3">
+                                <a href="https://designsystemchecklist.com/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">designsystemchecklist.com</a> é um checklist prático de design system — e o principal efeito dele é impedir que o agente saia criando estilos aleatórios pelo caminho.
+                            </p>
+                            <p class="text-slate-300 mb-6">
+                                Por último, <a href="https://interfaces.rauno.me/" target="_blank" class="font-bold text-[#a66ee4] hover:text-white transition-colors underline decoration-[#7b2fbe]/50 underline-offset-4">interfaces.rauno.me</a> é uma lista dos pequenos detalhes de interação que fazem uma interface parecer acabada. São aquelas coisas que ninguém nota quando existem, mas todo mundo sente quando faltam.
+                            </p>
+
+                            <!-- Prompt Box -->
+                            <div class="mt-4 mb-8">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                    <i class="ph-fill ph-terminal-window text-base"></i> PROMPT 2 — auditoria antes de publicar:
+                                </p>
+                                <div class="bg-[#0f172a] border border-slate-700 rounded-xl p-5 relative group shadow-inner">
+                                    <button onclick="copyText('prompt2')" class="absolute top-3 right-3 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all" title="Copiar Prompt">
+                                        <i class="ph ph-copy"></i>
+                                    </button>
+                                    <p id="prompt2" class="prompt-box text-[#e6e6f0] text-sm sm:text-base leading-relaxed">Audite a interface deste projeto usando como referência os playbooks do ui-skills.com, o checklist do designsystemchecklist.com e a lista de detalhes de interação do interfaces.rauno.me.
+
+Liste os problemas encontrados em três grupos:
+1. Valores inventados que fogem dos tokens definidos
+2. Falhas de acessibilidade (teclado, contraste, leitor de tela)
+3. Estados faltando (hover, foco, carregando, vazio, erro)
+
+Não corrija nada ainda. Só me mostre a lista, do mais grave para o menos grave.</p>
+                                </div>
+                            </div>
+
+                            <!-- Warning Alert -->
+                            <div class="bg-rose-900/20 border-l-4 border-rose-500 rounded-r-xl p-5">
+                                <h4 class="font-bold text-rose-400 mb-2 flex items-center gap-2">
+                                    <i class="ph-fill ph-warning text-xl"></i> PEÇA A LISTA ANTES DA CORREÇÃO
+                                </h4>
+                                <p class="text-rose-100/80 mb-2">Se você mandar a IA "arrumar tudo" de uma vez, ela reescreve arquivos inteiros e quebra o que já estava funcionando.</p>
+                                <p class="text-rose-50 font-medium">Peça o diagnóstico primeiro, escolha 3 ou 4 itens, e só então mande corrigir um de cada vez.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FASE 03 -->
+        <section class="mb-20 reveal">
+            <div class="bg-[#1a1a2e] rounded-t-2xl p-6 border-b-4 border-amber-500">
+                <p class="text-amber-400 font-bold text-sm mb-1 uppercase">FASE 03</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1">PERSONALIZAÇÃO: A CARA DA SUA MARCA</h3>
+                <p class="text-[#c9c9e3] text-sm">Quatro recursos para sair do padrão e virar identidade própria</p>
+            </div>
+            
+            <div class="bg-slate-800 rounded-b-2xl p-6 sm:p-8 shadow-sm border border-slate-700 border-t-0">
+                <p class="text-slate-300 mb-8 text-lg">
+                    Os passos anteriores tiram o ar de amador. Estes quatro tiram o ar de "igual a todo mundo".
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    
+                    <a href="https://iconcreator.dev/" target="_blank" class="hover-card group flex items-start gap-4 p-5 border border-slate-600 rounded-xl bg-slate-700/30 hover:border-[#7b2fbe] hover:bg-slate-700/50 text-decoration-none">
+                        <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-600 text-[#a66ee4] flex items-center justify-center font-bold text-lg shrink-0 group-hover:bg-[#7b2fbe] group-hover:text-white group-hover:border-[#7b2fbe] transition-colors">1</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1 group-hover:text-[#a66ee4] transition-colors flex items-center gap-2">Ícones que são só seus <i class="ph ph-arrow-right opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1"></i></h4>
+                            <p class="text-sm text-slate-400"><strong class="text-slate-300">iconcreator.dev</strong> é um criador de ícones personalizados gratuito, direto no navegador. Ícone próprio é um dos sinais mais rápidos de que alguém cuidou do projeto.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://bg.ibelick.com/" target="_blank" class="hover-card group flex items-start gap-4 p-5 border border-slate-600 rounded-xl bg-slate-700/30 hover:border-[#7b2fbe] hover:bg-slate-700/50 text-decoration-none">
+                        <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-600 text-[#a66ee4] flex items-center justify-center font-bold text-lg shrink-0 group-hover:bg-[#7b2fbe] group-hover:text-white group-hover:border-[#7b2fbe] transition-colors">2</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1 group-hover:text-[#a66ee4] transition-colors flex items-center gap-2">Fundos prontos <i class="ph ph-arrow-right opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1"></i></h4>
+                            <p class="text-sm text-slate-400"><strong class="text-slate-300">bg.ibelick.com</strong> tem fundos em Tailwind e CSS para copiar e colar. Tailwind é o padrão mais comum em IA, então esses fundos encaixam sem ajuste.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://component.gallery/" target="_blank" class="hover-card group flex items-start gap-4 p-5 border border-slate-600 rounded-xl bg-slate-700/30 hover:border-[#7b2fbe] hover:bg-slate-700/50 text-decoration-none">
+                        <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-600 text-[#a66ee4] flex items-center justify-center font-bold text-lg shrink-0 group-hover:bg-[#7b2fbe] group-hover:text-white group-hover:border-[#7b2fbe] transition-colors">3</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1 group-hover:text-[#a66ee4] transition-colors flex items-center gap-2">Roube referência <i class="ph ph-arrow-right opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1"></i></h4>
+                            <p class="text-sm text-slate-400"><strong class="text-slate-300">component.gallery</strong> tem mais de 2.600 exemplos de 95 design systems reais. Veja como empresas grandes já resolveram o mesmo problema.</p>
+                        </div>
+                    </a>
+
+                    <a href="https://designsystems.one/" target="_blank" class="hover-card group flex items-start gap-4 p-5 border border-slate-600 rounded-xl bg-slate-700/30 hover:border-[#7b2fbe] hover:bg-slate-700/50 text-decoration-none">
+                        <div class="w-12 h-12 rounded-full bg-slate-900 border border-slate-600 text-[#a66ee4] flex items-center justify-center font-bold text-lg shrink-0 group-hover:bg-[#7b2fbe] group-hover:text-white group-hover:border-[#7b2fbe] transition-colors">4</div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white mb-1 group-hover:text-[#a66ee4] transition-colors flex items-center gap-2">Baixe um design system <i class="ph ph-arrow-right opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-1"></i></h4>
+                            <p class="text-sm text-slate-400"><strong class="text-slate-300">designsystems.one</strong> reúne 88 design systems. O arquivo design.md é ouro: um texto que você entrega para a IA como manual de estilo do projeto.</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Prompt Box -->
+                <div class="mb-8">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                        <i class="ph-fill ph-terminal-window text-base"></i> PROMPT 3 — adaptando um design system pronto:
+                    </p>
+                    <div class="bg-[#0f172a] border border-slate-700 rounded-xl p-5 relative group shadow-inner">
+                        <button onclick="copyText('prompt3')" class="absolute top-3 right-3 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all" title="Copiar Prompt">
+                            <i class="ph ph-copy"></i>
+                        </button>
+                        <p id="prompt3" class="prompt-box text-[#e6e6f0] text-sm sm:text-base leading-relaxed">Anexei o arquivo design.md deste design system.
+
+Use ele como manual de estilo obrigatório do meu projeto, mas troque a paleta de cores por: [SUA COR PRINCIPAL] e [SUA COR DE APOIO].
+
+Mantenha a estrutura, a escala de espaçamento e os padrões de componente do original. Nada de degradê roxo padrão.</p>
+                    </div>
+                </div>
+
+                <!-- Success Alert -->
+                <div class="bg-emerald-900/20 border-l-4 border-emerald-500 rounded-r-xl p-5">
+                    <h4 class="font-bold text-emerald-400 mb-2 flex items-center gap-2">
+                        <i class="ph-fill ph-lightning text-xl"></i> O ATALHO MAIS RÁPIDO DESTE GUIA
+                    </h4>
+                    <p class="text-emerald-100/80 mb-2">Baixe um design.md do designsystems.one, troque só as cores pelas da sua marca e entregue à IA no início do projeto.</p>
+                    <p class="text-emerald-50 font-medium">Em 10 minutos você tem uma fundação melhor do que a maioria dos sites feitos às pressas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FASE 04 -->
+        <section class="mb-20 reveal">
+            <div class="bg-[#1a1a2e] rounded-t-2xl p-6 border-b-4 border-rose-500">
+                <p class="text-rose-400 font-bold text-sm mb-1 uppercase">FASE 04</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1">DICAS E INTEGRAÇÕES</h3>
+                <p class="text-[#c9c9e3] text-sm">Como encaixar tudo isso na sua rotina sem virar um projeto de mês</p>
+            </div>
+            
+            <div class="bg-slate-800 rounded-b-2xl p-6 sm:p-8 shadow-sm border border-slate-700 border-t-0">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="font-bold text-white mb-2 text-lg">1. Comece pelos 4 essenciais.</h4>
+                        <p class="text-slate-300">Se for usar só quatro, use <strong class="text-white">open-props.style</strong>, <strong class="text-white">vibeprompts.dev</strong>, <strong class="text-white">reui.io/components</strong> e <strong class="text-white">designsystemchecklist.com</strong>. Fundação, alvo, peças e conferência final — o resto é refinamento.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-2 text-lg">2. Guarde os links num arquivo.</h4>
+                        <p class="text-slate-300">Crie um arquivo de texto com as regras do seu projeto (paleta, fontes, quais bibliotecas usar) e cole no começo de cada conversa nova com a IA. Você para de repetir as mesmas instruções toda vez.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-2 text-lg">3. Um recurso por projeto novo.</h4>
+                        <p class="text-slate-300">Tentar dominar os 15 de uma vez trava qualquer um. Adote um novo a cada projeto e em quatro meses eles já viraram rotina.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-2 text-lg">4. Movimento é o último passo.</h4>
+                        <p class="text-slate-300">Animação em cima de um layout ruim só chama atenção para o layout ruim. Kinetics, motion-primitives e animatedbuttons entram quando a estrutura já está resolvida.</p>
+                    </div>
+                </div>
+
+                <!-- Warning Alert -->
+                <div class="bg-amber-900/20 border-l-4 border-amber-500 rounded-r-xl p-5">
+                    <h4 class="font-bold text-amber-500 mb-2 flex items-center gap-2">
+                        <i class="ph-fill ph-warning-circle text-xl"></i> CUIDADO COM O EXCESSO
+                    </h4>
+                    <p class="text-amber-100/80 mb-2">Animação demais cansa e deixa o site lento no celular. Se tudo se mexe, nada tem destaque.</p>
+                    <p class="text-amber-50 font-medium">Regra prática: anime só o que responde a uma ação da pessoa — clique, passar o mouse, abrir um menu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO REF - TABELA -->
+        <section class="mb-12 reveal" id="table-section">
+            <div class="bg-[#1a1a2e] rounded-t-2xl p-6 border-b-4 border-sky-500">
+                <p class="text-sky-400 font-bold text-sm mb-1 uppercase">SEÇÃO REF</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1">OS 15 RECURSOS EM UMA TABELA</h3>
+                <p class="text-[#c9c9e3] text-sm">Salve esta página — é a única que você vai reabrir</p>
+            </div>
+            
+            <div class="bg-slate-800 rounded-b-2xl shadow-sm border border-slate-700 border-t-0 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-[#2d0e53] text-white">
+                                <th class="p-4 font-bold w-12 text-center border-b border-[#4a148c]">Nº</th>
+                                <th class="p-4 font-bold w-48 border-b border-[#4a148c]">Recurso</th>
+                                <th class="p-4 font-bold border-b border-[#4a148c]">Para que serve</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">1</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://ui-skills.com/" target="_blank" class="hover:text-white transition-colors">ui-skills.com</a></td>
+                                <td class="p-4 text-slate-300">Playbooks de design para humanos e agentes de codificação. Audita UI, corrige design genérico de IA, melhora animações, acessibilidade e polimento.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">2</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://coss.com/ui" target="_blank" class="hover:text-white transition-colors">coss.com/ui</a></td>
+                                <td class="p-4 text-slate-300">O design system pronto para produção do Cal.com. Componentes React acessíveis que você possui. Para produto real, sem a cara padrão de SaaS.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">3</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://designsystemchecklist.com/" target="_blank" class="hover:text-white transition-colors">designsystemchecklist.com</a></td>
+                                <td class="p-4 text-slate-300">Checklist prático de design system. Impede agentes de criar estilos de UI aleatórios.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">4</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://reui.io/components" target="_blank" class="hover:text-white transition-colors">reui.io/components</a></td>
+                                <td class="p-4 text-slate-300">Mais de 1.000 componentes shadcn gratuitos e padrões avançados: data grids, kanban, gantt, filtros e calendários. Para interfaces complexas.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">5</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://kinetics.colorion.co/" target="_blank" class="hover:text-white transition-colors">kinetics.colorion.co</a></td>
+                                <td class="p-4 text-slate-300">Animações de mola (spring) prontas, com CSS, React e prompts de IA.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">6</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://iconcreator.dev/" target="_blank" class="hover:text-white transition-colors">iconcreator.dev</a></td>
+                                <td class="p-4 text-slate-300">Criador de ícones personalizados gratuito, direto no navegador.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">7</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://vibeprompts.dev/" target="_blank" class="hover:text-white transition-colors">vibeprompts.dev</a></td>
+                                <td class="p-4 text-slate-300">256 prompts para seções de UI: dashboards, preços, autenticação, onboarding e hero. Dá ao agente um alvo concreto de layout.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">8</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://animatedbuttons.colorion.co/" target="_blank" class="hover:text-white transition-colors">animatedbuttons.colorion.co</a></td>
+                                <td class="p-4 text-slate-300">99 interações de botão só em CSS. Copie o CSS ou o prompt. Mantém as interações consistentes no produto todo.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">9</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://component.gallery/" target="_blank" class="hover:text-white transition-colors">component.gallery</a></td>
+                                <td class="p-4 text-slate-300">Mais de 2.600 exemplos vindos de 95 design systems reais.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">10</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://designsystems.one/" target="_blank" class="hover:text-white transition-colors">designsystems.one</a></td>
+                                <td class="p-4 text-slate-300">88 design systems em produção, com tokens, tecnologias e arquivos design.md para download.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">11</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://utopia.fyi/" target="_blank" class="hover:text-white transition-colors">utopia.fyi</a></td>
+                                <td class="p-4 text-slate-300">Gera tipografia e espaçamento fluidos.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">12</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://open-props.style/" target="_blank" class="hover:text-white transition-colors">open-props.style</a></td>
+                                <td class="p-4 text-slate-300">Tokens de design prontos para cores, sombras, raios, espaçamento, easing e mais. Impede a IA de inventar valores aleatórios.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">13</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://interfaces.rauno.me/" target="_blank" class="hover:text-white transition-colors">interfaces.rauno.me</a></td>
+                                <td class="p-4 text-slate-300">Checklist dos pequenos detalhes de interação que fazem a interface parecer acabada.</td>
+                            </tr>
+                            <tr class="bg-slate-900/30 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">14</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://bg.ibelick.com/" target="_blank" class="hover:text-white transition-colors">bg.ibelick.com</a></td>
+                                <td class="p-4 text-slate-300">Fundos para copiar e colar em Tailwind e CSS.</td>
+                            </tr>
+                            <tr class="bg-slate-800/80 border-b border-slate-700 hover:bg-slate-700 transition-colors">
+                                <td class="p-4 text-center text-slate-400 font-medium">15</td>
+                                <td class="p-4 font-bold text-[#b483ec]"><a href="https://motion-primitives.com/" target="_blank" class="hover:text-white transition-colors">motion-primitives.com</a></td>
+                                <td class="p-4 text-slate-300">Componentes de animação reutilizáveis para React.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÔNUS: ACESSO RÁPIDO (Botões de Links) -->
+        <section class="mb-20 reveal" id="quick-links">
+            <div class="bg-[#1a1a2e] rounded-t-2xl p-6 border-b-4 border-indigo-500">
+                <p class="text-indigo-400 font-bold text-sm mb-1 uppercase">SEÇÃO BÔNUS</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-white mb-1 flex items-center gap-3">
+                    <i class="ph-fill ph-grid-four text-indigo-400"></i> ACESSO RÁPIDO
+                </h3>
+                <p class="text-[#c9c9e3] text-sm">Todos os 15 links do guia, prontos para você clicar e usar</p>
+            </div>
+            
+            <div class="bg-slate-800 rounded-b-2xl p-6 sm:p-8 shadow-sm border border-slate-700 border-t-0">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    
+                    <!-- Buttons -->
+                    <a href="https://open-props.style/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">open-props.style</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://utopia.fyi/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">utopia.fyi</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://reui.io/components" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">reui.io/components</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://coss.com/ui" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">coss.com/ui</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://vibeprompts.dev/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">vibeprompts.dev</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://kinetics.colorion.co/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">kinetics.colorion.co</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://animatedbuttons.colorion.co/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">animatedbuttons.colorion.co</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://motion-primitives.com/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">motion-primitives.com</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://ui-skills.com/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">ui-skills.com</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://designsystemchecklist.com/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">designsystemchecklist.com</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://interfaces.rauno.me/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">interfaces.rauno.me</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://iconcreator.dev/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">iconcreator.dev</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://bg.ibelick.com/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">bg.ibelick.com</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://component.gallery/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">component.gallery</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                    
+                    <a href="https://designsystems.one/" target="_blank" class="flex items-center justify-between p-4 bg-slate-900 border border-slate-700 rounded-xl hover:bg-brand-600 hover:border-brand-500 hover:shadow-lg hover:shadow-brand-500/20 text-slate-300 hover:text-white transition-all group text-decoration-none">
+                        <span class="font-semibold truncate">designsystems.one</span>
+                        <i class="ph ph-arrow-up-right opacity-50 group-hover:opacity-100 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <div class="bg-gradient-to-br from-[#1a1a2e] to-[#2d0e53] rounded-2xl p-8 sm:p-12 text-center shadow-2xl reveal border border-[#4a148c]">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 uppercase tracking-wide">QUER APRENDER A CONSTRUIR TUDO ISSO DO ZERO?</h3>
+            <p class="text-[#d8d8ec] max-w-2xl mx-auto mb-8 text-lg">
+                No <strong class="text-white">Curso completo do zero ao avançado</strong> você aprende a montar sites, páginas e produtos digitais com IA — do primeiro clique até o site no ar, sem precisar ser programador.
+            </p>
+            <a href="http://claudedozero.com/pv2" target="_blank" class="inline-flex items-center gap-3 bg-brand-600 hover:bg-brand-500 text-white font-bold py-4 px-10 rounded-full transition-all hover:-translate-y-1 hover:shadow-xl shadow-brand-500/40 text-lg">
+                Acessar claudedozero.com/pv2 <i class="ph ph-arrow-right"></i>
+            </a>
+            <div class="mt-8 text-white/50 font-bold">
+                <a href="https://instagram.com/gestordeaudiencia" target="_blank" class="hover:text-white transition-colors">@gestordeaudiencia</a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-auto">
+        <div class="max-w-5xl mx-auto px-4 py-8 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-slate-500 text-sm">
+                Baseado no documento original de Gestor de Audiência.
+            </p>
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-sm font-medium text-brand-500 hover:text-brand-400 flex items-center gap-1 transition-colors">
+                Voltar ao topo <i class="ph ph-arrow-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Toast Notification for Copy -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-lg shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2">
+        <i class="ph-fill ph-check-circle text-emerald-400"></i>
+        <span>Prompt copiado com sucesso!</span>
+    </div>
+
+    <script>
+        // Copy to clipboard function
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            
+            // Modern way if supported
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showToast);
+            } else {
+                // Fallback for older browsers or iframes
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "absolute";
+                textArea.style.left = "-999999px";
+                document.body.prepend(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (error) {
+                    console.error('Copy failed', error);
+                } finally {
+                    textArea.remove();
+                }
+            }
+        }
+
+        // Toast notification logic
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Scroll Reveal Animation Observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: stop observing once revealed
+                        // revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1, // Trigger when 10% of element is visible
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            reveals.forEach(reveal => {
+                revealObserver.observe(reveal);
+            });
+        });
+    </script>
+</body>
+</html>
